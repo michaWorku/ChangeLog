@@ -1,6 +1,15 @@
 import { User } from '@prisma/client'
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import * as bcrypt from 'bcrypt'
+
+export const comparePasswords = (password:string, hash: string)=>{
+    return bcrypt.compare(password, hash)
+}
+
+export const hashPassword = (password:string)=>{
+    return bcrypt.hash(password, 5)
+}
 
 export const createJWT = (user: User) => {
     return jwt.sign({ id: user?.id, userName: user?.userName }, process.env.JWT_SECRET as string)
