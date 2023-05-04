@@ -1,10 +1,19 @@
 import { Router, Response, Request } from "express";
 import bcrpt from 'bcrypt'
+import { createUser, signin } from "./handlers/users";
+import { protect } from "./modules/auth";
 const router = Router()
+
+/**
+ * User
+ */
+router.post('/users', createUser)
+router.post('/signin', signin)
 
 /**
  * Product
  */
+router.use(protect)
 router.get('/products', (req:Request, res: Response)=>{
     res.json({message: 'hey'}).status(200)
 })
