@@ -8,11 +8,11 @@ export const comparePasswords = (password:string, hash: string)=>{
 }
 
 export const hashPassword = (password:string)=>{
-    return bcrypt.hash(password, 5)
+    return bcrypt.hash(password, 8)
 }
 
 export const createJWT = (user: User) => {
-    return jwt.sign({ id: user?.id, userName: user?.userName }, process.env.JWT_SECRET as string)
+    return jwt.sign({ id: user?.id, email: user?.email }, process.env.JWT_SECRET as string)
 }
 
 export const protect =(req: any, res: Response, next: NextFunction)=>{
