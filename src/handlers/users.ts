@@ -30,7 +30,7 @@ export const signin = async (req: Request, res: Response) => {
 
         const token = createJWT(user)
         res.status(200).json({ token })
+    } else{
+        res.status(404).json({ message: 'User not found' })
     }
-
-    res.status(404).json({ message: 'User not found' })
 }
