@@ -30,6 +30,8 @@ model Product {
   updates   Update[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([id, userId])
 }
 
 model Update {
