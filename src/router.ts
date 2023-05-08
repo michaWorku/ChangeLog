@@ -1,4 +1,4 @@
-import { Router, Response, Request } from "express";
+import { Router, Response, Request, NextFunction } from "express";
 import bcrpt from 'bcrypt'
 import { createUser, signin } from "./handlers/users";
 import { protect } from "./modules/auth";
@@ -82,4 +82,9 @@ router.delete('/updatepoints/:id', (req: Request, res: Response) => {
 
 })
 
+// Error handler
+router.use((err:any, req: Request, res: Response, next: NextFunction) => {
+    console.log({err})
+    res.status(400).json({message: err.message})
+})
 export default router
