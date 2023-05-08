@@ -61,7 +61,7 @@ export const updateProduct = async (req: Request & { user: User }, res: Response
         }
     })
 
-    res.json({ data: product })
+    res.json({ data: product, message: 'product updated successfully' })
 }
 
 // Delete a product
