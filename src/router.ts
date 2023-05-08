@@ -36,15 +36,17 @@ router.get('/updates', getUpdates as any)
 router.get('/updates/:id', getUpdate)
 router.put(
     '/updates/:id',
-    body('name').optional(),
+    body('title').optional(),
     body('body').optional(),
-    body('status').isIn([body('IN_PROGRESS'), body('SHIPPED'), body('DEPRECATED')]).optional(),
+    body('status').isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRECATED']).optional(),
     handleInputErrors, 
     updateUpdate as any)
 router.post(
     '/updates',
-    body('name').exists().isString(),
+    body('title').exists().isString(),
     body('body').exists().isString(),
+    body('version').isString().optional(),
+    body('assets').isString().optional(),
     body('productId').exists().isString(),
     handleInputErrors, 
     createUpdate as any)

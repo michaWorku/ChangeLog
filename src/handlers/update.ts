@@ -45,6 +45,7 @@ export const createUpdate = async (req: Request & { user: Partial<User> }, res: 
             body: req?.body?.body,
             title: req?.body?.title,
             asset: req?.body?.asset,
+            version: req?.body?.version,
             product: {
                 connect: {
                     id: product?.id
