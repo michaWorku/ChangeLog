@@ -4,6 +4,8 @@ import { createUser, signin } from "./handlers/users";
 import { protect } from "./modules/auth";
 import { body, oneOf, validationResult } from "express-validator"
 import { handleInputErrors } from "./modules/middleware";
+import { getProducts, createProduct, updateProduct, deleteProduct, getProduct } from "./handlers/products";
+import { createUpdate, deleteUpdate, getUpdate, getUpdates, updateUpdate } from "./handlers/update";
 const router = Router()
 
 /**
@@ -16,52 +18,37 @@ router.post('/signin', signin)
  * Product
  */
 router.use(protect)
-router.get('/products', (req: Request, res: Response) => {
-    res.json({ message: 'hey' }).status(200)
-})
-router.get('/products/:id', (req: any, res: Response) => {
-    res.json({ id: req.params.id, testt: req?.test }).status(200)
-})
-router.put('/products/:id', body('name').exists().optional(), handleInputErrors, (req: Request, res: Response) => {
-
-})
-router.post('/products', (req: Request, res: Response) => {
-
-})
-router.delete('/products/:id', (req: Request, res: Response) => {
-
-})
+router.get('/products', getProducts as any)
+router.get('/products/:id', getProduct as any)
+router.put('/products/:id', body('name').exists().optional(), handleInputErrors, updateProduct as any)
+router.post(
+    '/products',
+    body('name').exists().isString(),
+    handleInputErrors,
+    createProduct as any
+)
+router.delete('/products/:id', deleteProduct as any)
 
 /**
  * Update
  */
-router.get('/updates', (req: Request, res: Response) => {
-
-})
-router.get('/updates/:id', (req: Request, res: Response) => {
-
-})
+router.get('/updates', getUpdates as any)
+router.get('/updates/:id', getUpdate)
 router.put(
     '/updates/:id',
     body('name').optional(),
     body('body').optional(),
-    body('status').isIn([body('IN_PROGRESS'), body('SHIPPED'), body('DEPRECATED')]),
-    handleInputErrors,
-    (req: Request, res: Response) => {
-
-    })
+    body('status').isIn([body('IN_PROGRESS'), body('SHIPPED'), body('DEPRECATED')]).optional(),
+    handleInputErrors, 
+    updateUpdate as any)
 router.post(
     '/updates',
     body('name').exists().isString(),
     body('body').exists().isString(),
     body('productId').exists().isString(),
-    handleInputErrors,
-    (req: Request, res: Response) => {
-
-    })
-router.delete('/updates/:id', (req: Request, res: Response) => {
-
-})
+    handleInputErrors, 
+    createUpdate as any)
+router.delete('/updates/:id', deleteUpdate as any)
 
 /**
  * Update Point
