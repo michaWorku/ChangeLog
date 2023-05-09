@@ -1,6 +1,7 @@
 import http from 'http'
 import app from './server'
 import {config} from 'dotenv'
+import envConfig from './config'
 config()
 // const server = http.createServer(async(req, res)=>{
 //     if(req.url === '/' && req.method === 'GET'){
@@ -13,11 +14,11 @@ config()
 //     res.end(JSON.stringify({message: 'nope'}))
 // })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
 // server.listen(PORT, ()=>{
 //     console.log(`server on ${PORT}`)
 // })
 
-app.listen(PORT, ()=>{
-    console.log(`Server running on ${3000}`)
+app.listen(envConfig.port, ()=>{
+    console.log(`Server running on ${envConfig.port}`)
 })
