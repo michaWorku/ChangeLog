@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon -e ts -w ./src -x npm run watch:serve",
     "watch:serve": "ts-node src/index",
-    "test":"jest --detectOpenHandles"
+    "test":"jest --detectOpenHandles",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
